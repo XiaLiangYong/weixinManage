@@ -6,6 +6,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'defaultRoute' => 'user/login',
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -15,16 +16,20 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'niiassfdfdgffdgdfgsdf!23*1`11/```#',
+            'enableCsrfValidation' => false,
+        ],
+        'user' => [
+            'identityClass' => 'app\modules\admin\models\User',
+            'enableAutoLogin' => true,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-        ],
         'errorHandler' => [
             'errorAction' => 'error',
+        ],
+        'Fun' => [
+            'class' => 'app\components\Fun'
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

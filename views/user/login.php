@@ -29,51 +29,43 @@ use yii\helpers\Url;
 <div class="header"></div>
 <div class="loginWraper">
     <div id="loginform" class="loginBox">
-        <form class="form form-horizontal" action="index.html" method="post">
+        <form id="fom" class="form form-horizontal" action="<?= Url::toRoute('user/login') ?>" method="post">
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
                 <div class="formControls col-xs-8">
-                    <input id="" name="" type="text" placeholder="账户" class="input-text size-L">
+                    <input id="username" name="username" type="text" placeholder="账户" class="input-text size-L"
+                           required="*">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
                 <div class="formControls col-xs-8">
-                    <input id="" name="" type="password" placeholder="密码" class="input-text size-L">
+                    <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L"
+                           required="*">
                 </div>
             </div>
             <div class="row cl">
                 <div class="formControls col-xs-8 col-xs-offset-3">
-                    <input class="input-text size-L" type="text" placeholder="验证码" style="width:150px;">
-                  <!--  <img src="<?/*= Url::toRoute('user/captcha',time()) */?>">-->
-                    <?=\yii\captcha\Captcha::widget(['name'=>'captchaimg','captchaAction'=>'user/captcha','imageOptions'=>['id'=>'captchaimg', 'title'=>'换一个', 'alt'=>'换一个'],'template'=>'{image}']);?>
-                </div>
-            </div>
-            <div class="row cl">
-                <div class="formControls col-xs-8 col-xs-offset-3">
-                    <label for="online">
-                        <input type="checkbox" name="online" id="online" value="">
-                        使我保持登录状态</label>
+                    <input class="input-text size-L" name="code" type="text" placeholder="验证码" style="width:150px;"
+                           required="*">
+                    <?= \yii\captcha\Captcha::widget(['name' => 'captchaimg', 'captchaAction' => 'user/captcha', 'imageOptions' => ['id' => 'captchaimg', 'title' => '换一个', 'alt' => '换一个'], 'template' => '{image}']); ?>
                 </div>
             </div>
             <div class="row cl">
                 <div class="formControls col-xs-8 col-xs-offset-3">
                     <input name="" type="submit" class="btn btn-success radius size-L"
-                           value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
-                    <input name="" type="reset" class="btn btn-default radius size-L"
-                           value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                           value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;" onclick="sumit()">
                 </div>
             </div>
         </form>
     </div>
 </div>
-<div class="footer">Copyright 你的公司名称 by H-ui.admin.page.3.0 <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
+<div class="footer">
+    Copyright <?= '© 2014-' . date('Y', $_SERVER['REQUEST_TIME']) . ' ' . Yii::$app->params['ICPLicense'] ?> <a
+            href="http://www.xialiangyong.com" target="_blank">贝贝博客</a>
 </div>
 
 <script type="text/javascript" src="<?= Yii::getAlias('@web') ?>/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="<?= Yii::getAlias('@web') ?>/js/H-ui.js"></script>
-<script>
-
-</script>
 </body>
 </html>

@@ -9,6 +9,9 @@
 namespace app\controllers;
 
 
+use app\models\User;
+use yii\helpers\Url;
+
 class UserController extends BaseController
 {
 
@@ -34,6 +37,29 @@ class UserController extends BaseController
      */
     public function actionLogin()
     {
+        if (\Yii::$app->request->isPost && !$this->isLogin()) {
+            //处理业务逻辑
+            $username = \Yii::$app->request->post('username');
+            $password = \Yii::$app->request->post('password');
+            $code = \Yii::$app->request->post('code');
+            $fun = \Yii::$app->Fun;
+            if ($this->createAction('captcha')->getVerifyCode(false) == $code) {
+                $userInfo = User::find()->where(['name' => $username])->limit(1)->asArray()->one();
+                if (empty($userInfo)) {
+                    return $this->goBack();
+                }
+                if ($userInfo['pwd'] != md5(md5($password))) {
+                    return $this->goBack();
+                }
+                $fun->setSession('username', $username);
+                $index = Url::toRoute('admin/index');
+                return $this->redirect($index);
+            } else {
+                $fun->setCookie('errorAlert', '验证码不正确');
+                //验证码不正确
+                return $this->goBack();
+            }
+        }
         return $this->render('login');
     }
 

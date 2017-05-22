@@ -14,4 +14,21 @@ use yii\web\Controller;
 class BaseController extends Controller
 {
 
+    /**
+     * 检查是否登录
+     */
+    protected function isLogin()
+    {
+        $fun = \Yii::$app->Fun;
+        return $fun->getSession('username') ? true : false;
+    }
+
+    /**
+     * 获取用户昵称
+     */
+    protected function getUserName()
+    {
+        $fun = \Yii::$app->Fun;
+        return $fun->getSession('username');
+    }
 }
